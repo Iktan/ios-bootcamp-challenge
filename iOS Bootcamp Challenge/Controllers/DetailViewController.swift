@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
+final class DetailViewController: UIViewController {
 
     static let segueIdentifier = "goDetailViewControllerSegue"
     private let margin: CGFloat = 20
@@ -74,10 +74,24 @@ class DetailViewController: UIViewController {
 
         guard let pokemon = pokemon else { return items }
 
+        // pokemon type
+        if let type = pokemon.types{
+            let title = "Types"
+            let name = type.map({ item in
+                return item.type.name
+            }).joined(separator: "\n")
+            
+            let item = Item(title: title, description: name)
+            items.append(item)
+        }
+        
         // abilities
         if let abilities = pokemon.abilities {
             let title = "Abilities"
-            let description = abilities.joined(separator: "\n")
+            let description = abilities.map({ item in
+                return item.ability.name
+            }).joined(separator: "\n")
+            
             let item = Item(title: title, description: description)
             items.append(item)
         }
@@ -151,7 +165,7 @@ class DetailViewController: UIViewController {
         imageView.widthAnchor.constraint(equalToConstant: 200).isActive = true
     }
 
-    private func buildTypes(_ types: [String]) {
+    private func buildTypes(_ types: [Types]) {
         types.forEach { type in
             let padding = 20.0
             let label = UILabel()
@@ -159,7 +173,7 @@ class DetailViewController: UIViewController {
             label.font = UIFont.boldSystemFont(ofSize: 17)
             label.textColor = .white
             label.translatesAutoresizingMaskIntoConstraints = false
-            label.text = type.capitalized
+            label.text = type.type.name.capitalized
             label.backgroundColor = .white.withAlphaComponent(0.30)
             label.layer.cornerRadius = 7.0
             label.layer.masksToBounds = true

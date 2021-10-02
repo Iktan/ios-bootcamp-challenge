@@ -24,7 +24,7 @@ protocol SearchBarProtocol: UISearchBarDelegate & UISearchResultsUpdating {
     var showsCancelButton: Bool { get set }
 }
 
-class SearchBar: UISearchController, SearchBarProtocol {
+final class SearchBar: UISearchController, SearchBarProtocol {
 
     private weak var searchBarDelegate: SearchBarDelegate?
 

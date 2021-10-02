@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Card {
+final class Card {
 
     let title: String
     let items: [Item]

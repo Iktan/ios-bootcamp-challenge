@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CardView: UIView {
+final class CardView: UIView {
 
     private let margin: CGFloat = 30
     var card: Card?

@@ -21,8 +21,8 @@ extension URLSession {
     }
 }
 
-public class MockURLSession: URLSession {
-    public override func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
+final class MockURLSession: URLSession {
+    override func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
         return URLSession.shared.dataTask(with: request) { data, response, error in
             DispatchQueue.main.asyncAfter(deadline: .now() + Double.random(in: 0.5...2)) {
                 completionHandler(data, response, error)

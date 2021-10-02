@@ -6,9 +6,9 @@
 //
 
 import UIKit
-import SVProgressHUD
 
-class ListViewController: UICollectionViewController {
+
+final class ListViewController: UICollectionViewController {
 
     private var pokemons: [Pokemon] = []
     private var resultPokemons: [Pokemon] = []

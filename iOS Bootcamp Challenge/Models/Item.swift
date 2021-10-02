@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Item {
+final class Item {
 
     let title: String
     let description: String

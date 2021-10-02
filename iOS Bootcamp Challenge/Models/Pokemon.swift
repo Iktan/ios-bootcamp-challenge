@@ -9,22 +9,22 @@ import Foundation
 
 // MARK: - Pokemon
 
-enum PokemonType: String, Decodable, CaseIterable, Identifiable {
+struct PokemonType: Decodable, Equatable {
+    let name: String
+    let url: String
+}
 
-    var id: String { rawValue }
+struct Types: Decodable, Equatable {
+    let type: PokemonType
+}
 
-    case fire = "Fire"
-    case grass = "Grass"
-    case water = "Water"
-    case poison = "Poison"
-    case flying = "Flying"
-    case electric = "Electric"
-    case bug = "Bug"
-    case normal = "Normal"
-    case fighting = "Fighting"
-    case ice = "Ice"
-    case ground = "Ground"
+struct Ability: Decodable, Equatable {
+    let name: String
+    let url: String
+}
 
+struct PokemonAbility: Decodable, Equatable {
+    let ability: Ability
 }
 
 struct Pokemon: Decodable, Equatable {
@@ -32,10 +32,10 @@ struct Pokemon: Decodable, Equatable {
     let id: Int
     let name: String
     let image: String?
-    let types: [String]?
-    let abilities: [String]?
+    let types: [Types]?
     let weight: Float
     let baseExperience: Int
+    let abilities: [PokemonAbility]?
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -62,10 +62,8 @@ struct Pokemon: Decodable, Equatable {
         let officialArtWork = try other.nestedContainer(keyedBy: CodingKeys.self, forKey: .officialArtwork)
         self.image = try? officialArtWork.decode(String.self, forKey: .frontDefault)
 
-        // TODO: Decode list of types & abilities
-
-        self.types = []
-        self.abilities = []
+        self.abilities = try container.decodeIfPresent([PokemonAbility].self, forKey: .abilities)
+        self.types = try container.decodeIfPresent([Types].self, forKey: .types)
 
         self.weight = try container.decode(Float.self, forKey: .weight)
         self.baseExperience = try container.decode(Int.self, forKey: .baseExperience)
@@ -81,13 +79,12 @@ extension Pokemon {
 
     func primaryType() -> String? {
         guard let primary = types?.first else { return nil }
-        return primary.capitalized
+        return primary.type.name.capitalized
     }
 
     func secondaryType() -> String? {
-        let index = 1
-        guard index < types?.count ?? 0 else { return nil }
-        return types?[index].capitalized
+        guard let secondary = types?.last else { return nil }
+        return secondary.type.name.capitalized
     }
 
 }

@@ -8,13 +8,31 @@
 import Foundation
 import UIKit
 
+enum PokemonColorType: String {
+
+    var id: String { rawValue }
+
+    case fire = "Fire"
+    case grass = "Grass"
+    case water = "Water"
+    case poison = "Poison"
+    case flying = "Flying"
+    case electric = "Electric"
+    case bug = "Bug"
+    case normal = "Normal"
+    case fighting = "Fighting"
+    case ice = "Ice"
+    case ground = "Ground"
+
+}
+
 struct PokemonColor {
 
     // swiftlint:disable:next cyclomatic_complexity
     static func typeLinearGradient(name: String?) -> CAGradientLayer {
         let gradient = CAGradientLayer()
         gradient.locations = [0.0, 1.0]
-        let type = PokemonType(rawValue: name ?? "")
+        let type = PokemonColorType(rawValue: name ?? "")
         switch type {
         case .grass:
             gradient.colors = [UIColor.primaryGrass, UIColor.secondaryGrass]

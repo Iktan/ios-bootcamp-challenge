@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ItemView: UIView {
+final class ItemView: UIView {
 
     var item: Item?
     private let margin: CGFloat = 20

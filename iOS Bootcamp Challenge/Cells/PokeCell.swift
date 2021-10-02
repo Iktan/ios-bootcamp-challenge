@@ -8,7 +8,7 @@
 import UIKit
 import Kingfisher
 
-class PokeCell: UICollectionViewCell {
+final class PokeCell: UICollectionViewCell {
     static let identifier = "kPokeCollectionViewCell"
 
     lazy private var idLabel: UILabel = {
@@ -139,9 +139,9 @@ class PokeCell: UICollectionViewCell {
                 imageView.kf.setImage(with: url)
             }
 
-            for type in pokemon.types ?? [] {
+            for value in pokemon.types ?? [] {
                 let last = typesContainer.subviews.last
-                let view = createTypeLabel(name: type)
+                let view = createTypeLabel(name: value.type.name)
                 typesContainer.addSubview(view)
 
                 if let last = last {

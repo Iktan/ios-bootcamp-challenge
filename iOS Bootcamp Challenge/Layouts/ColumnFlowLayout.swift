@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ColumnFlowLayout: UICollectionViewFlowLayout {
+final class ColumnFlowLayout: UICollectionViewFlowLayout {
 
     private let preferedSize: CGSize = .init(width: 140, height: 100)
     private let preferedSpacing: CGFloat = 4
