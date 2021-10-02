@@ -104,8 +104,12 @@ final class ListViewController: UICollectionViewController {
 
     // MARK: - Navigation
 
-    // TODO: Handle navigation to detail view controller
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let indexPath = collectionView.indexPathsForSelectedItems?.first,
+              let detail = segue.destination as? DetailViewController else { return }
+        detail.pokemon = resultPokemons[indexPath.row]
+    }
+    
     // MARK: - UI Hooks
 
     @objc func refresh() {
